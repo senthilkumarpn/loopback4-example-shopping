@@ -10,7 +10,10 @@ module.exports = application;
 if (require.main === module) {
   // Run the application
   console.log("In Recommender Package " + process.env.HOST, process.env.PORT)
-  //  const host = process.env.HEROKU_APP_NAME ? process.env.HEROKU_APP_NAME + ".herokuapp.com" : 'localhost';
+  console.log(process.env.HEROKU_APP_NAME);
+  const productionUrl = "https://aathisoft-api-dev.herokuapp.com/";
+  const localurl = "localhost";
+  const host = (process.env.NODE_ENV ? productionUrl : localurl);
   const port = +(process.env.RECOMMENDER_REST_SERVICE_PORT_REST || 60001);
   const options = {
     rest: {
@@ -23,7 +26,7 @@ if (require.main === module) {
         credentials: true,
       },
       port: port,
-      //     host: host,
+      host: host,
       openApiSpec: {
         // useful when used with OpenAPI-to-GraphQL to locate your application
         setServersFromRequest: true,
