@@ -10,7 +10,8 @@ module.exports = application;
 if (require.main === module) {
   // Run the application
   console.log("In Recommender Package " + process.env.HOST, process.env.PORT)
-
+  const host = process.env.HEROKU_APP_NAME ? process.env.HEROKU_APP_NAME + ".herokuapp.com" : 'localhost';
+  const port = +(process.env.RECOMMENDER_REST_SERVICE_PORT_REST || 60001);
   const options = {
     rest: {
       cors: {
@@ -21,8 +22,8 @@ if (require.main === module) {
         maxAge: 86400,
         credentials: true,
       },
-      port: +(process.env.RECOMMENDER_REST_SERVICE_PORT_REST || 60001),
-      host: process.env.HOST || 'localhost',
+      port: port,
+      host: host,
       openApiSpec: {
         // useful when used with OpenAPI-to-GraphQL to locate your application
         setServersFromRequest: true,
