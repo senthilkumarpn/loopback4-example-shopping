@@ -19,6 +19,14 @@ if (require.main === module) {
         maxAge: 86400,
         credentials: true,
       },
+      port: +(process.env.PORT || 60000),
+      host: process.env.HOST || 'localhost',
+      openApiSpec: {
+        // useful when used with OpenAPI-to-GraphQL to locate your application
+        setServersFromRequest: true,
+      },
+      // Enable HTTPS
+      protocol: 'https',
     },
   };
   application.main(options).catch(err => {

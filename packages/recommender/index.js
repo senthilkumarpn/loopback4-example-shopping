@@ -9,7 +9,27 @@ module.exports = application;
 
 if (require.main === module) {
   // Run the application
-  application.main().catch(err => {
+  const options = {
+    rest: {
+      cors: {
+        origin: '*',
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+        preflightContinue: true,
+        optionsSuccessStatus: 204,
+        maxAge: 86400,
+        credentials: true,
+      },
+      port: +(process.env.RECOMMENDER_REST_SERVICE_PORT_REST || 60001),
+      host: process.env.RECOMMENDER_REST_SERVICE_HOST || 'localhost',
+      openApiSpec: {
+        // useful when used with OpenAPI-to-GraphQL to locate your application
+        setServersFromRequest: true,
+      },
+      // Enable HTTPS
+      protocol: 'https',
+    },
+  };
+  application.main(options).catch(err => {
     console.error('Cannot start the application.', err);
     process.exit(1);
   });
