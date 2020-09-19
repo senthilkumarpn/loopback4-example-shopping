@@ -26,7 +26,7 @@ import _ from 'lodash';
 import {PasswordHasherBindings, UserServiceBindings} from '../keys';
 import {Product, User} from '../models';
 import {UserRepository} from '../repositories';
-import {Credentials} from '../repositories/user.repository';
+import {Credentials,SendEmail} from '../repositories/user.repository';
 import {basicAuthorization} from '../services/basic.authorizor';
 import {PasswordHasher} from '../services/hash.password.bcryptjs';
 import {RecommenderService} from '../services/recommender.service';
@@ -34,8 +34,11 @@ import {validateCredentials} from '../services/validator';
 import {OPERATION_SECURITY_SPEC} from '../utils/security-spec';
 import {
   CredentialsRequestBody,
+  SendMailRequestBody,
   UserProfileSchema,
 } from './specs/user-controller.specs';
+import {MailerService} from '../services';
+import { send } from 'process';
 
 @model()
 export class NewUserRequest extends User {
@@ -257,7 +260,44 @@ export class UserController {
 
     // create a JSON Web Token based on the user profile
     const token = await this.jwtService.generateToken(userProfile);
-
     return {token};
   }
+  @post('/users/sendmail', {
+    responses: {
+      '200': {
+        description: 'Token',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'object',
+              properties: {
+                token: {
+                  type: 'string',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  })
+  async sendMail(
+    @requestBody(SendMailRequestBody) sendEmail: SendEmail,
+  ): Promise<{token: string}> {
+    const mailerservice = new MailerService();
+    console.log(sendEmail);
+    let content = "Customer Name:" + sendEmail.name +"<br/><p> Contact Number:"+sendEmail.mobile+"<br/>"+sendEmail.content+"</p>";
+    const info = await mailerservice.sendMail({
+      to: sendEmail.email,
+      subject: sendEmail.subject,
+      html: content,
+    });
+    //console.log("Message sent: %s", info.messageId);
+    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+    // Preview only available when sending through an Ethereal account
+    //console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    const token : string = "email sent";
+    return {token};
+  }
+
 }

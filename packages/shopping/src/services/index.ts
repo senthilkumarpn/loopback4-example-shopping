@@ -6,3 +6,4 @@
 export * from './recommender.service';
 export * from './recommender-rest.service';
 export * from './recommender-grpc.service';
+export * from './mailer.service'

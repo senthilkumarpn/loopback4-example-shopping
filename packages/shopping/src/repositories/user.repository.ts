@@ -16,10 +16,17 @@ import {OrderRepository} from './order.repository';
 import {UserCredentialsRepository} from './user-credentials.repository';
 
 export type Credentials = {
-  email: string;
+  email: string,
   password: string;
 };
 
+export type SendEmail = {
+  email: string,
+  content: string,
+  mobile: number,
+  subject: string,
+  name: string;
+};
 export class UserRepository extends DefaultCrudRepository<
   User,
   typeof User.prototype.id

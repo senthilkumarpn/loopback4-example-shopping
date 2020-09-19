@@ -8,9 +8,9 @@ export const UserProfileSchema = {
   type: 'object',
   required: ['id'],
   properties: {
-    id: {type: 'string'},
-    email: {type: 'string'},
-    name: {type: 'string'},
+    id: { type: 'string' },
+    email: { type: 'string' },
+    name: { type: 'string' },
   },
 };
 
@@ -38,6 +38,38 @@ export const CredentialsRequestBody = {
   description: 'The input of login function',
   required: true,
   content: {
-    'application/json': {schema: CredentialsSchema},
+    'application/json': { schema: CredentialsSchema },
+  },
+};
+
+const SendMailSchema = {
+  type: 'object',
+  required: ['email', 'content', 'mobile'],
+  properties: {
+    email: {
+      type: 'string',
+      format: 'email',
+    },
+    content: {
+      type: 'string',
+      minLength: 5,
+    },
+    mobile: {
+      type: 'number',
+    },
+    subject: {
+      type: 'string',
+    },
+    name: {
+      type: 'string',
+    },
+  },
+};
+
+export const SendMailRequestBody = {
+  description: 'Send Mail function',
+  required: true,
+  content: {
+    'application/json': { schema: SendMailSchema },
   },
 };
