@@ -1,8 +1,8 @@
 {
   "name": "mongo",
   "connector": "mongodb",
-  "url": "",
-  "host": "127.0.0.1",
+  "url": "mongodb+srv://admin:admin123456789~@cluster0-k27bz.mongodb.net/aathisoft-api-dev",
+  "host": "",
   "port": 27017,
   "user": "",
   "password": "",
