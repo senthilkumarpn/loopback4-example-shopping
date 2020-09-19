@@ -9,6 +9,8 @@ module.exports = application;
 
 if (require.main === module) {
   // Run the application
+  console.log("In Recommender Package " + process.env.HOST, process.env.PORT)
+
   const options = {
     rest: {
       cors: {
@@ -20,7 +22,7 @@ if (require.main === module) {
         credentials: true,
       },
       port: +(process.env.RECOMMENDER_REST_SERVICE_PORT_REST || 60001),
-      host: process.env.RECOMMENDER_REST_SERVICE_HOST || 'localhost',
+      host: process.env.HOST || 'localhost',
       openApiSpec: {
         // useful when used with OpenAPI-to-GraphQL to locate your application
         setServersFromRequest: true,
@@ -29,6 +31,8 @@ if (require.main === module) {
       protocol: 'https',
     },
   };
+  console.log("In Recommender Package " + options.rest.host, options.rest.port)
+
   application.main(options).catch(err => {
     console.error('Cannot start the application.', err);
     process.exit(1);

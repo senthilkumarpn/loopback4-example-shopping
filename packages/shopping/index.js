@@ -9,6 +9,7 @@ module.exports = application;
 
 if (require.main === module) {
   // Run the application
+  console.log("In Shopping Package " + process.env.HOST, process.env.PORT)
   const options = {
     rest: {
       cors: {
