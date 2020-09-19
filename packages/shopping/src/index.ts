@@ -3,13 +3,14 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-import {ShoppingApplication} from './application';
 import {ApplicationConfig} from '@loopback/core';
-export {ShoppingApplication, PackageInfo, PackageKey} from './application';
+import {ShoppingApplication} from './application';
+export {PackageInfo, PackageKey, ShoppingApplication} from './application';
 
 export async function main(options?: ApplicationConfig) {
   const app = new ShoppingApplication(options);
-
+  console.log(process.env.HOST, process.env.PORT);
+  console.log(app.restServer.httpServer?.host, app.restServer.httpServer?.port, app.restServer.listening);
   await app.boot();
   await app.start();
 
