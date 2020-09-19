@@ -1,8 +1,8 @@
 {
   "name": "redis",
   "connector": "kv-redis",
-  "host": "127.0.0.1",
-  "port": 6379,
-  "password": "",
+  "host": "redis-11059.c228.us-central1-1.gce.cloud.redislabs.com",
+  "port": 11059,
+  "password": "LZCaVCmIkraiLVaspAWj7OWU74gfp71b",
   "db": 0
 }
