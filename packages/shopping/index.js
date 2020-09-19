@@ -9,7 +9,19 @@ module.exports = application;
 
 if (require.main === module) {
   // Run the application
-  application.main().catch(err => {
+  const options = {
+    rest: {
+      cors: {
+        origin: '*',
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+        preflightContinue: true,
+        optionsSuccessStatus: 204,
+        maxAge: 86400,
+        credentials: true,
+      },
+    },
+  };
+  application.main(options).catch(err => {
     console.error('Cannot start the application.', err);
     process.exit(1);
   });
