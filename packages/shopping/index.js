@@ -4,14 +4,14 @@
 // License text available at https://opensource.org/licenses/MIT
 
 const application = require('./dist');
-
+const NODE_ENV = require('../../config');
 module.exports = application;
 
 if (require.main === module) {
   // Run the application
   console.log("In Shopping Package " + process.env.HOST, process.env.PORT)
   console.log(process.env.HEROKU_APP_NAME);
-  const productionUrl = "https://aathisoft-api-dev.herokuapp.com/";
+  const productionUrl = "aathisoft-api-dev.herokuapp.com";
   const localurl = "localhost";
   const host = (process.env.NODE_ENV ? productionUrl : localurl);
   const port = +(process.env.PORT || 60000);

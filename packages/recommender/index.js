@@ -2,6 +2,7 @@
 // Node module: loopback4-example-recommender
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
+const NODE_ENV = require('../../config');
 
 const application = require('./dist');
 
@@ -10,7 +11,7 @@ module.exports = application;
 if (require.main === module) {
   // Run the application
   console.log("In Recommender Package " + process.env.HOST, process.env.PORT)
-  console.log(process.env.HEROKU_APP_NAME);
+  console.log(process.env.HEROKU_APP_NAME, NODE_ENV);
   const productionUrl = "https://aathisoft-api-dev.herokuapp.com/";
   const localurl = "localhost";
   const host = (process.env.NODE_ENV ? productionUrl : localurl);
