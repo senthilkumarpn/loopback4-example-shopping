@@ -12,9 +12,7 @@ if (require.main === module) {
   // Run the application
   console.log("In Recommender Package " + process.env.HOST, process.env.PORT)
   console.log(process.env.HEROKU_APP_NAME, NODE_ENV);
-  const productionUrl = "https://aathisoft-api-dev.herokuapp.com/";
-  const localurl = "localhost";
-  const host = (process.env.NODE_ENV ? productionUrl : localurl);
+  const host = process.env.HOST || '0.0.0.0';
   const port = +(process.env.RECOMMENDER_REST_SERVICE_PORT_REST || 60001);
   const options = {
     rest: {

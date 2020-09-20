@@ -11,9 +11,7 @@ if (require.main === module) {
   // Run the application
   console.log("In Shopping Package " + process.env.HOST, process.env.PORT)
   console.log(process.env.HEROKU_APP_NAME);
-  const productionUrl = "aathisoft-api-dev.herokuapp.com";
-  const localurl = "localhost";
-  const host = (process.env.NODE_ENV ? productionUrl : localurl);
+  const host = process.env.HOST || '0.0.0.0';
   const port = +(process.env.PORT || 60000);
 
   const options = {
