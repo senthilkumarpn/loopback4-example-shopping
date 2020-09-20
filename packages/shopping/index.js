@@ -12,7 +12,7 @@ if (require.main === module) {
   console.log("In Shopping Package " + process.env.HOST, process.env.PORT)
   console.log(process.env.HEROKU_APP_NAME);
   const host = process.env.HOST || '0.0.0.0';
-  const port = +(process.env.PORT || 60000);
+  const port = +(process.env.PORT || 3000);
 
   const options = {
     rest: {
@@ -31,7 +31,7 @@ if (require.main === module) {
         setServersFromRequest: true,
       },
       // Enable HTTPS
-      protocol: 'https',
+      //protocol: 'https',
     },
   };
   application.main(options).catch(err => {

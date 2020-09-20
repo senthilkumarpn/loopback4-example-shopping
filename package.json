@@ -36,8 +36,10 @@
     "posttest": "npm run lint",
     "test:dev": "lb-mocha --allow-console-logs \"packages/*/dist/__tests__/**/*.js\" && npm run posttest",
     "prestart": "npm run build",
-    "start": "concurrently --kill-others \"npm run start:app\" \"npm run start:recommender\"",
+    "start1": "concurrently --kill-others \"npm run start:app\" \"npm run start:recommender\"",
     "start:app": "node ./packages/shopping",
+    "start": "pm2 start ecosystem.config.js --env production",
+    "stop": "pm2 stop ecosystem.config.js --env production",
     "start:recommender": "node ./packages/recommender",
     "prepublishOnly": "npm run test"
   },
@@ -47,7 +49,9 @@
   },
   "private": true,
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "pm2": "^4.4.1"
+  },
   "devDependencies": {
     "@commitlint/cli": "9.1.2",
     "@commitlint/config-conventional": "9.1.2",

@@ -13,7 +13,7 @@ if (require.main === module) {
   console.log("In Recommender Package " + process.env.HOST, process.env.PORT)
   console.log(process.env.HEROKU_APP_NAME, NODE_ENV);
   const host = process.env.HOST || '0.0.0.0';
-  const port = +(process.env.RECOMMENDER_REST_SERVICE_PORT_REST || 60001);
+  const port = +(process.env.RECOMMENDER_REST_SERVICE_PORT_REST || 3001);
   const options = {
     rest: {
       cors: {
@@ -31,7 +31,7 @@ if (require.main === module) {
         setServersFromRequest: true,
       },
       // Enable HTTPS
-      protocol: 'https',
+      // protocol: 'https',
     },
   };
   console.log("In Recommender Package " + options.rest.host, options.rest.port)
