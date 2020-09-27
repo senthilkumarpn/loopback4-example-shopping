@@ -13,7 +13,7 @@ if (require.main === module) {
   console.log(process.env.HEROKU_APP_NAME);
   const host = process.env.HOST || '0.0.0.0';
   const port = +(process.env.PORT || 3000);
-
+  let _a;
   const options = {
     rest: {
       cors: {
@@ -24,14 +24,18 @@ if (require.main === module) {
         maxAge: 86400,
         credentials: true,
       },
-      port: port,
-      host: host,
+      port: +((_a = process.env.PORT) !== null && _a !== void 0 ? _a : 3000),
+      host: process.env.HOST,
+      // The `gracePeriodForClose` provides a graceful close for http/https
+      // servers with keep-alive clients. The default value is `Infinity`
+      // (don't force-close). If you want to immediately destroy all sockets
+      // upon stop, set its value to `0`.
+      // See https://www.npmjs.com/package/stoppable
+      gracePeriodForClose: 5000,
       openApiSpec: {
         // useful when used with OpenAPI-to-GraphQL to locate your application
         setServersFromRequest: true,
       },
-      // Enable HTTPS
-      //protocol: 'https',
     },
   };
   application.main(options).catch(err => {
