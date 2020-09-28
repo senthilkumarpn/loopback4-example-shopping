@@ -7,7 +7,7 @@ import {
   AuthenticateFn,
   AuthenticationBindings,
   AUTHENTICATION_STRATEGY_NOT_FOUND,
-  USER_PROFILE_NOT_FOUND,
+  USER_PROFILE_NOT_FOUND
 } from '@loopback/authentication';
 import {inject} from '@loopback/context';
 import {
@@ -19,7 +19,7 @@ import {
   RequestContext,
   RestBindings,
   Send,
-  SequenceHandler,
+  SequenceHandler
 } from '@loopback/rest';
 
 const SequenceActions = RestBindings.SequenceActions;
@@ -46,17 +46,26 @@ export class MyAuthenticationSequence implements SequenceHandler {
   async handle(context: RequestContext) {
     try {
       const {request, response} = context;
-      const finished = await this.invokeMiddleware(context);
-      if (finished) return;
-      const route = this.findRoute(request);
+      response.header('Access-Control-Allow-Origin', '*');
+      response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+      if (request.method === 'OPTIONS') {
+        response.status(200)
+        this.send(response, 'ok');
+      }
+      else {
+        const finished = await this.invokeMiddleware(context);
 
-      //call authentication action
-      await this.authenticateRequest(request);
+        if (finished) return;
+        const route = this.findRoute(request);
 
-      // Authentication successful, proceed to invoke controller
-      const args = await this.parseParams(request, route);
-      const result = await this.invoke(route, args);
-      this.send(response, result);
+        //call authentication action
+        await this.authenticateRequest(request);
+
+        // Authentication successful, proceed to invoke controller
+        const args = await this.parseParams(request, route);
+        const result = await this.invoke(route, args);
+        this.send(response, result);
+      }
     } catch (error) {
       //
       // The authentication action utilizes a strategy resolver to find

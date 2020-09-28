@@ -24,7 +24,9 @@
       "name": "Server",
       "preLaunchTask": "Build Server",
       "program": "${workspaceFolder}/packages/shopping/index.js",
-      "outFiles": ["${workspaceFolder}/packages/shopping/**/*.js"]
+      "outFiles": [
+        "${workspaceFolder}/packages/shopping/**/*.js"
+      ]
     }
   ]
 }

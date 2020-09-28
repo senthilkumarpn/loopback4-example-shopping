@@ -6,25 +6,25 @@
 import {AuthenticationComponent} from '@loopback/authentication';
 import {
   JWTAuthenticationComponent,
-  TokenServiceBindings,
+  TokenServiceBindings
 } from '@loopback/authentication-jwt';
 import {AuthorizationComponent} from '@loopback/authorization';
 import {BootMixin} from '@loopback/boot';
 import {
   ApplicationConfig,
   BindingKey,
-  createBindingFromClass,
+  createBindingFromClass
 } from '@loopback/core';
 import {
   model,
   property,
   RepositoryMixin,
-  SchemaMigrationOptions,
+  SchemaMigrationOptions
 } from '@loopback/repository';
 import {RestApplication} from '@loopback/rest';
 import {
   RestExplorerBindings,
-  RestExplorerComponent,
+  RestExplorerComponent
 } from '@loopback/rest-explorer';
 import {ServiceMixin} from '@loopback/service-proxy';
 import fs from 'fs';
@@ -36,7 +36,7 @@ import {
   OrderRepository,
   ProductRepository,
   ShoppingCartRepository,
-  UserRepository,
+  UserRepository
 } from './repositories';
 import {MyAuthenticationSequence} from './sequence';
 import {BcryptHasher} from './services/hash.password.bcryptjs';
