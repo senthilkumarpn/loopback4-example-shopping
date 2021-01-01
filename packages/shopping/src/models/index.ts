@@ -3,9 +3,12 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-export * from './user.model';
+export * from './order.model';
+export * from './pos-app';
+export * from './product.model';
 export * from './shopping-cart-item.model';
 export * from './shopping-cart.model';
-export * from './order.model';
 export * from './user-credentials.model';
-export * from './product.model';
+export * from './user.model';
+
+

@@ -3,8 +3,10 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-export * from './user.repository';
-export * from './shopping-cart.repository';
 export * from './order.repository';
-export * from './user-credentials.repository';
+export * from './pos-app';
 export * from './product.repository';
+export * from './shopping-cart.repository';
+export * from './user-credentials.repository';
+export * from './user.repository';
+

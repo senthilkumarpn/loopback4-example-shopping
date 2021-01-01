@@ -10,8 +10,8 @@ module.exports = application;
 
 if (require.main === module) {
   // Run the application
-  console.log("In Recommender Package " + process.env.HOST, process.env.PORT)
-  console.log(process.env.HEROKU_APP_NAME, NODE_ENV);
+  // console.log("In Recommender Package " + process.env.HOST, process.env.PORT)
+  // console.log(process.env.HEROKU_APP_NAME, NODE_ENV);
   const host = process.env.HOST || '0.0.0.0';
   //const port = +(process.env.RECOMMENDER_REST_SERVICE_PORT_REST || 3001);
   let portNum;
@@ -38,7 +38,7 @@ if (require.main === module) {
       // protocol: 'https',
     },
   };
-  console.log("In Recommender Package " + options.rest.host, options.rest.port)
+  //console.log("In Recommender Package " + options.rest.host, options.rest.port)
 
   application.main(options).catch(err => {
     console.error('Cannot start the application.', err);
