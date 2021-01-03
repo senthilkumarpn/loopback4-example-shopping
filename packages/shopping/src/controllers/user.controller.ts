@@ -6,7 +6,7 @@
 import {
   authenticate,
   TokenService,
-  UserService,
+  UserService
 } from '@loopback/authentication';
 import {TokenServiceBindings} from '@loopback/authentication-jwt';
 import {authorize} from '@loopback/authorization';
@@ -19,14 +19,15 @@ import {
   param,
   post,
   put,
-  requestBody,
+  requestBody
 } from '@loopback/rest';
 import {SecurityBindings, securityId, UserProfile} from '@loopback/security';
 import _ from 'lodash';
 import {PasswordHasherBindings, UserServiceBindings} from '../keys';
 import {Product, User} from '../models';
 import {UserRepository} from '../repositories';
-import {Credentials,SendEmail} from '../repositories/user.repository';
+import {Credentials, SendEmail} from '../repositories/user.repository';
+import {MailerService} from '../services';
 import {basicAuthorization} from '../services/basic.authorizor';
 import {PasswordHasher} from '../services/hash.password.bcryptjs';
 import {RecommenderService} from '../services/recommender.service';
@@ -35,10 +36,8 @@ import {OPERATION_SECURITY_SPEC} from '../utils/security-spec';
 import {
   CredentialsRequestBody,
   SendMailRequestBody,
-  UserProfileSchema,
+  UserProfileSchema
 } from './specs/user-controller.specs';
-import {MailerService} from '../services';
-import { send } from 'process';
 
 @model()
 export class NewUserRequest extends User {
@@ -60,7 +59,7 @@ export class UserController {
     public jwtService: TokenService,
     @inject(UserServiceBindings.USER_SERVICE)
     public userService: UserService<User, Credentials>,
-  ) {}
+  ) { }
 
   @post('/users', {
     responses: {
@@ -207,6 +206,31 @@ export class UserController {
     return this.userRepository.findById(userId);
   }
 
+  @get('/users/auth', {
+    security: OPERATION_SECURITY_SPEC,
+    responses: {
+      '200': {
+        description: 'The current user profile',
+        content: {
+          'application/json': {
+            schema: UserProfileSchema,
+          },
+        },
+      },
+    },
+  })
+  @authenticate('jwt')
+  async getCurrentUser(
+    @inject(SecurityBindings.USER)
+    currentUserProfile: UserProfile,
+  ): Promise<User> {
+    // (@jannyHou)FIXME: explore a way to generate OpenAPI schema
+    // for symbol property
+
+    const userId = currentUserProfile[securityId];
+    return this.userRepository.findById(userId);
+  }
+
   @get('/users/{userId}/recommend', {
     responses: {
       '200': {
@@ -286,7 +310,7 @@ export class UserController {
   ): Promise<{token: string}> {
     const mailerservice = new MailerService();
     console.log(sendEmail);
-    let content = "Customer Name:" + sendEmail.name +"<br/><p> Contact Number:"+sendEmail.mobile+"<br/>"+sendEmail.content+"</p>";
+    let content = "Customer Name:" + sendEmail.name + "<br/><p> Contact Number:" + sendEmail.mobile + "<br/>" + sendEmail.content + "</p>";
     const info = await mailerservice.sendMail({
       to: sendEmail.email,
       subject: sendEmail.subject,
@@ -296,7 +320,7 @@ export class UserController {
     // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
     // Preview only available when sending through an Ethereal account
     //console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-    const token : string = "email sent";
+    const token: string = "email sent";
     return {token};
   }
 

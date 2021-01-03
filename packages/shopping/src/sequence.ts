@@ -41,13 +41,14 @@ export class MyAuthenticationSequence implements SequenceHandler {
     @inject(SequenceActions.REJECT) protected reject: Reject,
     @inject(AuthenticationBindings.AUTH_ACTION)
     protected authenticateRequest: AuthenticateFn,
-  ) {}
+  ) { }
 
   async handle(context: RequestContext) {
     try {
       const {request, response} = context;
       response.header('Access-Control-Allow-Origin', '*');
-      response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+      response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, X-Access-Token, x-auth-token, authorization, access-control-allow-origin');
+
       if (request.method === 'OPTIONS') {
         response.status(200)
         this.send(response, 'ok');

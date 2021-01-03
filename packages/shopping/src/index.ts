@@ -9,8 +9,8 @@ export {PackageInfo, PackageKey, ShoppingApplication} from './application';
 
 export async function main(options?: ApplicationConfig) {
   const app = new ShoppingApplication(options);
-  console.log(process.env.HOST, process.env.PORT);
-  console.log(app.restServer.httpServer?.host, app.restServer.httpServer?.port, app.restServer.listening);
+  //console.log(process.env.HOST, process.env.PORT);
+  //console.log(app.restServer.httpServer?.host, app.restServer.httpServer?.port, app.restServer.listening);
   await app.boot();
   await app.start();
 
