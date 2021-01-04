@@ -86,7 +86,7 @@ export class UserController {
       },
     })
     newUserRequest: NewUserRequest,
-  ): Promise<User> {
+  ): Promise<{token: string}> {
     // All new users have the "customer" role by default
     newUserRequest.roles = ['customer'];
     // ensure a valid email value and password value
@@ -108,7 +108,12 @@ export class UserController {
         .userCredentials(savedUser.id)
         .create({password});
 
-      return savedUser;
+      // convert a User object into a UserProfile object (reduced set of properties)
+      const userProfile = this.userService.convertToUserProfile(savedUser);
+
+      // create a JSON Web Token based on the user profile
+      const token = await this.jwtService.generateToken(userProfile);
+      return {token};
     } catch (error) {
       // MongoError 11000 duplicate key
       if (error.code === 11000 && error.errmsg.includes('index: uniqueEmail')) {
