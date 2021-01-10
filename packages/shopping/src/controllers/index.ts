@@ -4,7 +4,9 @@
 // License text available at https://opensource.org/licenses/MIT
 
 export * from './ping.controller';
-export * from './user.controller';
+export * from './pos-app';
+export * from './product.controller';
 export * from './shopping-cart.controller';
 export * from './user-order.controller';
-export * from './product.controller';
+export * from './user.controller';
+

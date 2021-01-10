@@ -4,3 +4,5 @@
 // License text available at https://opensource.org/licenses/MIT
 
 export * from './master/item-master.controller';
+export * from './master/vendor-master.controller';
+

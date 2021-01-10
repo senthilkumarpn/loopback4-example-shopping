@@ -4,4 +4,5 @@
 // License text available at https://opensource.org/licenses/MIT
 
 export * from './master/item-master.model';
+export * from './master/vendor-master.model';
 
