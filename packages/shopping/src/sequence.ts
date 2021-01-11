@@ -47,7 +47,7 @@ export class MyAuthenticationSequence implements SequenceHandler {
     try {
       const {request, response} = context;
       response.header('Access-Control-Allow-Origin', '*');
-      response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, X-Access-Token, x-auth-token, authorization, access-control-allow-origin');
+      response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, X-Access-Token, x-auth-token, authorization, access-control-allow-origin, GET, POST, OPTIONS, PUT, DELETE, PATCH');
 
       if (request.method === 'OPTIONS') {
         response.status(200)
