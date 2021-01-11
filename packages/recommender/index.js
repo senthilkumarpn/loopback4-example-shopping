@@ -14,7 +14,8 @@ if (require.main === module) {
   // console.log(process.env.HEROKU_APP_NAME, NODE_ENV);
   const host = process.env.HOST || '0.0.0.0';
   //const port = +(process.env.RECOMMENDER_REST_SERVICE_PORT_REST || 3001);
-  let portNum;
+
+  let portNum = +(process.env.PORT || 3001);
   // eslint-disable-next-line no-void
   const port = +((portNum = process.env.RECOMMENDER_REST_SERVICE_PORT_REST) !== null && portNum !== void 0 ? portNum : 3001);
   const options = {

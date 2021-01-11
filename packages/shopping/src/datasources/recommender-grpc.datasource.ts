@@ -4,7 +4,7 @@
 // License text available at https://opensource.org/licenses/MIT
 
 import {inject} from '@loopback/core';
-import {juggler, AnyObject} from '@loopback/repository';
+import {AnyObject, juggler} from '@loopback/repository';
 import path from 'path';
 
 const config = require('./recommender-grpc.datasource.config.json');
@@ -15,7 +15,11 @@ function updateConfig(dsConfig: AnyObject) {
     process.env.RECOMMENDER_GRPC_SERVICE_HOST
   ) {
     const host = process.env.RECOMMENDER_GRPC_SERVICE_HOST;
-    const port = +process.env.RECOMMENDER_GRPC_SERVICE_PORT_GRPC!;
+    const portEnv = +process.env.RECOMMENDER_GRPC_SERVICE_PORT_GRPC!;
+
+    var port = +(process.env.PORT || portEnv);
+    // eslint-disable-next-line no-void
+    //const port = +((portNum = process.env.RECOMMENDER_GRPC_SERVICE_PORT_GRPC) !== null && portNum !== void 0 ? portNum : portEnv);
 
     dsConfig.url = `${host}:${port}`;
   }
